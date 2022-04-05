@@ -5,12 +5,12 @@ description: Learn how CORS as a standard for allowing or rejecting cross-origin
 ms.author: riande
 ms.custom: mvc
 ms.date: 9/11/2021
-no-loc: [Home, Privacy, Kestrel, appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR]
+no-loc: [".NET MAUI", "Mac Catalyst", "Blazor Hybrid", Home, Privacy, Kestrel, appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR]
 uid: security/cors
 ---
 # Enable Cross-Origin Requests (CORS) in ASP.NET Core
 
-::: moniker range=">= aspnetcore-6.0"
+:::moniker range=">= aspnetcore-6.0"
 
 By [Rick Anderson](https://twitter.com/RickAndMSFT) and [Kirk Larkin](https://twitter.com/serpent5)
 
@@ -89,6 +89,12 @@ The <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder> methods ca
 [!code-csharp[](cors/6.0sample/Cors/WebAPI/Program.cs?name=snippet2)]
 
 Note: The specified URL must **not** contain a trailing slash (`/`). If the URL terminates with `/`, the comparison returns `false` and no header is returned.
+
+<a name="uc1"></a>
+
+## UseCors and UseStaticFiles order
+
+Typically, `UseStaticFiles` is called before `UseCors`. Apps that use JavaScript to retrieve static files cross site must call `UseCors` before `UseStaticFiles`.
 
 <a name="dp"></a>
 
@@ -193,7 +199,7 @@ This section describes the various options that can be set in a CORS policy:
 * [Credentials in cross-origin requests](#credentials-in-cross-origin-requests)
 * [Set the preflight expiration time](#set-the-preflight-expiration-time)
 
-<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsOptions.AddPolicy*> is called in *Program.cs*. For some options, it may be helpful to read the [How CORS works](#how-cors) section first.
+<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsOptions.AddPolicy*> is called in `Program.cs`. For some options, it may be helpful to read the [How CORS works](#how-cors) section first.
 
 ## Set the allowed origins
 
@@ -383,7 +389,7 @@ Browsers aren't consistent in how they set `Access-Control-Request-Headers`. If 
 
 When the CORS policy is applied either:
 
-* Globally by calling `app.UseCors` in  *Program.cs*.
+* Globally by calling `app.UseCors` in  `Program.cs`.
 * Using the `[EnableCors]` attribute.
 
 ASP.NET Core responds to the preflight OPTIONS request.
@@ -518,6 +524,14 @@ If <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyOrig
 
 If the response doesn't include the `Access-Control-Allow-Origin` header, the cross-origin request fails. Specifically, the browser disallows the request. Even if the server returns a successful response, the browser doesn't make the response available to the client app.
 
+<a name="no-http"></a>
+
+### HTTP redirection to HTTPS causes ERR_INVALID_REDIRECT on the CORS preflight request
+
+Requests to an endpoint using HTTP that are redirected to HTTPS by <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection%2A> fail with `ERR_INVALID_REDIRECT on the CORS preflight request`.
+
+API projects can reject HTTP requests rather than use `UseHttpsRedirection` to redirect requests to HTTPS.
+
 <a name="options"></a>
 
 ### Display OPTIONS requests
@@ -616,9 +630,9 @@ Test the preceding code from the [test page](https://cors1.azurewebsites.net/tes
 * [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/docs/Web/HTTP/CORS)
 * [Getting started with the IIS CORS module](https://blogs.iis.net/iisteam/getting-started-with-the-iis-cors-module)
 
-::: moniker-end
+:::moniker-end
 
-::: moniker range="< aspnetcore-6.0"
+:::moniker range="< aspnetcore-6.0"
 
 By [Rick Anderson](https://twitter.com/RickAndMSFT) and [Kirk Larkin](https://twitter.com/serpent5)
 
@@ -1219,5 +1233,5 @@ Test the preceding code from the [test page](https://cors1.azurewebsites.net/tes
 * [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/docs/Web/HTTP/CORS)
 * [Getting started with the IIS CORS module](https://blogs.iis.net/iisteam/getting-started-with-the-iis-cors-module)
 
-::: moniker-end
+:::moniker-end
 

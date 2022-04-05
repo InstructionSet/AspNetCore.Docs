@@ -5,7 +5,7 @@ description: Learn how to create JSON HTTP APIs for gRPC services.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 08/28/2020
-no-loc: [Home, Privacy, Kestrel, appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR]
+no-loc: [".NET MAUI", "Mac Catalyst", "Blazor Hybrid", Home, Privacy, Kestrel, appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR]
 uid: grpc/httpapi
 ---
 # Create JSON Web APIs from gRPC
@@ -39,9 +39,9 @@ gRPC can still be used to call services.
 ### Usage
 
 1. Add a package reference to [Microsoft.AspNetCore.Grpc.HttpApi](https://www.nuget.org/packages/Microsoft.AspNetCore.Grpc.HttpApi).
-1. Register services in *Startup.cs* with `AddGrpcHttpApi`.
+1. Register services in `Startup.cs` with `AddGrpcHttpApi`.
 1. Add [google/api/http.proto](https://github.com/aspnet/AspLabs/blob/c1e59cacf7b9606650d6ec38e54fa3a82377f360/src/GrpcHttpApi/sample/Proto/google/api/http.proto) and [google/api/annotations.proto](https://github.com/aspnet/AspLabs/blob/c1e59cacf7b9606650d6ec38e54fa3a82377f360/src/GrpcHttpApi/sample/Proto/google/api/annotations.proto) files to your project.
-1. Annotate gRPC methods in your *.proto* files with HTTP bindings and routes:
+1. Annotate gRPC methods in your `.proto` files with HTTP bindings and routes:
 
 [!code-protobuf[](~/grpc/httpapi/greet.proto?highlight=3,9-11)]
 
@@ -74,7 +74,7 @@ Swagger (OpenAPI) is a language-agnostic specification for describing REST APIs.
 To enable Swagger with gRPC HTTP API:
 
 1. Add a package reference to [Microsoft.AspNetCore.Grpc.Swagger](https://www.nuget.org/packages/Microsoft.AspNetCore.Grpc.Swagger).
-2. Configure Swashbuckle in *Startup.cs*. The `AddGrpcSwagger` method configures Swashbuckle to include gRPC HTTP API endpoints.
+2. Configure Swashbuckle in `Startup.cs`. The `AddGrpcSwagger` method configures Swashbuckle to include gRPC HTTP API endpoints.
 
 [!code-csharp[](~/grpc/httpapi/Startup.cs?name=snippet_1&highlight=6-10,15-19)]
 
@@ -109,7 +109,7 @@ We want to gauge developer interest in gRPC HTTP API. If gRPC HTTP API is intere
 
 ## grpc-gateway
 
-[grpc-gateway](https://grpc-ecosystem.github.io/grpc-gateway/) is another technology for creating RESTful JSON APIs from gRPC services. It uses the same *.proto* annotations to map HTTP concepts to gRPC services.
+[grpc-gateway](https://grpc-ecosystem.github.io/grpc-gateway/) is another technology for creating RESTful JSON APIs from gRPC services. It uses the same `.proto` annotations to map HTTP concepts to gRPC services.
 
 The biggest difference between grpc-gateway and gRPC HTTP API is grpc-gateway uses code generation to create a reverse-proxy server. The reverse-proxy translates RESTful calls into gRPC and then sends them on to the gRPC service.
 

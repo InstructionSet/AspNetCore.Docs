@@ -6,14 +6,14 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
-no-loc: [Home, Privacy, Kestrel, appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR]
+no-loc: [".NET MAUI", "Mac Catalyst", "Blazor Hybrid", Home, Privacy, Kestrel, appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR]
 uid: test/troubleshoot-azure-iis
 ---
 # Troubleshoot ASP.NET Core on Azure App Service and IIS
 
 By [Justin Kotalik](https://github.com/jkotalik)
 
-::: moniker range=">= aspnetcore-3.0"
+:::moniker range=">= aspnetcore-3.0"
 
 This article provides information on common app startup errors and instructions on how to diagnose errors when an app is deployed to Azure App Service or IIS:
 
@@ -34,7 +34,7 @@ Lists additional troubleshooting topics.
 
 ## App startup errors
 
-In Visual Studio, an ASP.NET Core project defaults to [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) hosting during debugging. A *502.5 - Process Failure* or a *500.30 - Start Failure* that occurs when debugging locally can be diagnosed using the advice in this topic.
+In Visual Studio, the ASP.NET Core project default server is Kestrel. Visual studio can be configured to use [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview). A *502.5 - Process Failure* or a *500.30 - Start Failure* that occurs when debugging locally with IIS Express can be diagnosed using the advice in this topic.
 
 ### 403.14 Forbidden
 
@@ -66,6 +66,8 @@ For more information on the layout of a published ASP.NET Core app, see <xref:ho
 The app starts, but an error prevents the server from fulfilling the request.
 
 This error occurs within the app's code during startup or while creating a response. The response may contain no content, or the response may appear as a *500 Internal Server Error* in the browser. The Application Event Log usually states that the app started normally. From the server's perspective, that's correct. The app did start, but it can't generate a valid response. Run the app at a command prompt on the server or enable the ASP.NET Core Module stdout log to troubleshoot the problem.
+
+This error also may occur when the .NET Core Hosting Bundle isn't installed or is corrupted. Installing or repairing the installation of the .NET Core Hosting Bundle (for IIS) or Visual Studio (for IIS Express) may fix the problem.
 
 ### 500.0 In-Process Handler Load Failure
 
@@ -223,7 +225,7 @@ An alternative to using the **Diagnose and solve problems** blade is to examine 
 1. Open **Advanced Tools** in the **Development Tools** area. Select the **Go&rarr;** button. The Kudu console opens in a new browser tab or window.
 1. Using the navigation bar at the top of the page, open **Debug console** and select **CMD**.
 1. Open the **LogFiles** folder.
-1. Select the pencil icon next to the *eventlog.xml* file.
+1. Select the pencil icon next to the `eventlog.xml` file.
 1. Examine the log. Scroll to the bottom of the log to see the most recent events.
 
 ### Run the app in the Kudu console
@@ -547,6 +549,7 @@ A functioning app may fail immediately after upgrading either the .NET Core SDK 
 
 ## Additional resources
 
+* <xref:test/debug-aspnetcore-source>
 * <xref:test/troubleshoot>
 * <xref:host-and-deploy/azure-iis-errors-reference>
 * <xref:fundamentals/error-handling>
@@ -563,7 +566,6 @@ A functioning app may fail immediately after upgrading either the .NET Core SDK 
 * [Troubleshoot slow web app performance issues in Azure App Service](/azure/app-service/app-service-web-troubleshoot-performance-degradation)
 * [Application performance FAQs for Web Apps in Azure](/azure/app-service/app-service-web-availability-performance-application-issues-faq)
 * [Azure Web App sandbox (App Service runtime execution limitations)](https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox)
-* [Azure Friday: Azure App Service Diagnostic and Troubleshooting Experience (12-minute video)](https://channel9.msdn.com/Shows/Azure-Friday/Azure-App-Service-Diagnostic-and-Troubleshooting-Experience)
 
 ### Visual Studio documentation
 
@@ -575,9 +577,9 @@ A functioning app may fail immediately after upgrading either the .NET Core SDK 
 
 * [Debugging with Visual Studio Code](https://code.visualstudio.com/docs/editor/debugging)
 
-::: moniker-end
+:::moniker-end
 
-::: moniker range="= aspnetcore-2.2"
+:::moniker range="= aspnetcore-2.2"
 
 This article provides information on common app startup errors and instructions on how to diagnose errors when an app is deployed to Azure App Service or IIS:
 
@@ -630,6 +632,8 @@ For more information on the layout of a published ASP.NET Core app, see <xref:ho
 The app starts, but an error prevents the server from fulfilling the request.
 
 This error occurs within the app's code during startup or while creating a response. The response may contain no content, or the response may appear as a *500 Internal Server Error* in the browser. The Application Event Log usually states that the app started normally. From the server's perspective, that's correct. The app did start, but it can't generate a valid response. Run the app at a command prompt on the server or enable the ASP.NET Core Module stdout log to troubleshoot the problem.
+
+This error also may occur when the .NET Core Hosting Bundle isn't installed or is corrupted. Installing or repairing the installation of the .NET Core Hosting Bundle (for IIS) or Visual Studio (for IIS Express) may fix the problem.
 
 ### 500.0 In-Process Handler Load Failure
 
@@ -705,7 +709,7 @@ An alternative to using the **Diagnose and solve problems** blade is to examine 
 1. Open **Advanced Tools** in the **Development Tools** area. Select the **Go&rarr;** button. The Kudu console opens in a new browser tab or window.
 1. Using the navigation bar at the top of the page, open **Debug console** and select **CMD**.
 1. Open the **LogFiles** folder.
-1. Select the pencil icon next to the *eventlog.xml* file.
+1. Select the pencil icon next to the `eventlog.xml` file.
 1. Examine the log. Scroll to the bottom of the log to see the most recent events.
 
 ### Run the app in the Kudu console
@@ -1056,7 +1060,6 @@ A functioning app may fail immediately after upgrading either the .NET Core SDK 
 * [Troubleshoot slow web app performance issues in Azure App Service](/azure/app-service/app-service-web-troubleshoot-performance-degradation)
 * [Application performance FAQs for Web Apps in Azure](/azure/app-service/app-service-web-availability-performance-application-issues-faq)
 * [Azure Web App sandbox (App Service runtime execution limitations)](https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox)
-* [Azure Friday: Azure App Service Diagnostic and Troubleshooting Experience (12-minute video)](https://channel9.msdn.com/Shows/Azure-Friday/Azure-App-Service-Diagnostic-and-Troubleshooting-Experience)
 
 ### Visual Studio documentation
 
@@ -1068,9 +1071,9 @@ A functioning app may fail immediately after upgrading either the .NET Core SDK 
 
 * [Debugging with Visual Studio Code](https://code.visualstudio.com/docs/editor/debugging)
 
-::: moniker-end
+:::moniker-end
 
-::: moniker range="< aspnetcore-2.2"
+:::moniker range="< aspnetcore-2.2"
 
 This article provides information on common app startup errors and instructions on how to diagnose errors when an app is deployed to Azure App Service or IIS:
 
@@ -1123,6 +1126,8 @@ For more information on the layout of a published ASP.NET Core app, see <xref:ho
 The app starts, but an error prevents the server from fulfilling the request.
 
 This error occurs within the app's code during startup or while creating a response. The response may contain no content, or the response may appear as a *500 Internal Server Error* in the browser. The Application Event Log usually states that the app started normally. From the server's perspective, that's correct. The app did start, but it can't generate a valid response. Run the app at a command prompt on the server or enable the ASP.NET Core Module stdout log to troubleshoot the problem.
+
+This error also may occur when the .NET Core Hosting Bundle isn't installed or is corrupted. Installing or repairing the installation of the .NET Core Hosting Bundle (for IIS) or Visual Studio (for IIS Express) may fix the problem.
 
 ### 502.5 Process Failure
 
@@ -1183,7 +1188,7 @@ An alternative to using the **Diagnose and solve problems** blade is to examine 
 1. Open **Advanced Tools** in the **Development Tools** area. Select the **Go&rarr;** button. The Kudu console opens in a new browser tab or window.
 1. Using the navigation bar at the top of the page, open **Debug console** and select **CMD**.
 1. Open the **LogFiles** folder.
-1. Select the pencil icon next to the *eventlog.xml* file.
+1. Select the pencil icon next to the `eventlog.xml` file.
 1. Examine the log. Scroll to the bottom of the log to see the most recent events.
 
 ### Run the app in the Kudu console
@@ -1487,7 +1492,6 @@ A functioning app may fail immediately after upgrading either the .NET Core SDK 
 * [Troubleshoot slow web app performance issues in Azure App Service](/azure/app-service/app-service-web-troubleshoot-performance-degradation)
 * [Application performance FAQs for Web Apps in Azure](/azure/app-service/app-service-web-availability-performance-application-issues-faq)
 * [Azure Web App sandbox (App Service runtime execution limitations)](https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox)
-* [Azure Friday: Azure App Service Diagnostic and Troubleshooting Experience (12-minute video)](https://channel9.msdn.com/Shows/Azure-Friday/Azure-App-Service-Diagnostic-and-Troubleshooting-Experience)
 
 ### Visual Studio documentation
 
@@ -1499,4 +1503,4 @@ A functioning app may fail immediately after upgrading either the .NET Core SDK 
 
 * [Debugging with Visual Studio Code](https://code.visualstudio.com/docs/editor/debugging)
 
-::: moniker-end
+:::moniker-end

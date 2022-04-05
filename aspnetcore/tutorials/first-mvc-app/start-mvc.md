@@ -4,7 +4,7 @@ author: rick-anderson
 description: Learn how to get started with ASP.NET Core MVC.
 ms.author: riande
 ms.date: 09/17/2021
-no-loc: [Home, Privacy, Kestrel, appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR]
+no-loc: [".NET MAUI", "Mac Catalyst", "Blazor Hybrid", Home, Privacy, Kestrel, appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR]
 uid: tutorials/first-mvc-app/start-mvc
 ms.custom: contperf-fy21q3
 ---
@@ -12,7 +12,7 @@ ms.custom: contperf-fy21q3
 
 By [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-::: moniker range=">= aspnetcore-6.0"
+:::moniker range=">= aspnetcore-6.0"
 
 [!INCLUDE [consider RP](~/includes/razor.md)]
 
@@ -56,7 +56,7 @@ For Visual Studio for Mac, see the .NET 5 version of this tutorial.
 * In the **Create a new project** dialog, select **ASP.NET Core Web App (Model-View-Controller)** > **Next**.
 * In the **Configure your new project** dialog, enter `MvcMovie` for **Project name**. It's important to name the project *MvcMovie*. Capitalization needs to match each `namespace` when code is copied.
 * Select **Next**.
-* In the **Additional information** dialog, select **.NET 6.0 (Preview)**.
+* In the **Additional information** dialog, select **.NET 6.0 (Long-term support)**.
 * Select **Create**.
 
 ![Additional info dialog](start-mvc/_static/net6-additional-info.png)
@@ -84,7 +84,7 @@ The tutorial assumes familiarity with VS Code. For more information, see [Gettin
   * If a dialog box appears with **Required assets to build and debug are missing from 'MvcMovie'. Add them?**, select **Yes**
 
   * `dotnet new mvc -o MvcMovie`: Creates a new ASP.NET Core MVC project in the *MvcMovie* folder.
-  * `code -r MvcMovie`: Loads the *MvcMovie.csproj* project file in Visual Studio Code.
+  * `code -r MvcMovie`: Loads the `MvcMovie.csproj` project file in Visual Studio Code.
 
 # [Visual Studio for Mac](#tab/visual-studio-mac)
 
@@ -168,7 +168,7 @@ Launching the app without debugging by selecting Ctrl+F5 allows you to:
 
 For Visual Studio for Mac, see the .NET 5 version of this tutorial.
 
-<!-->
+<!--
 * Select **Run** > **Start Without Debugging** to launch the app.
 
   Visual Studio for Mac:
@@ -197,9 +197,9 @@ In the next tutorial in this series, you learn about MVC and start writing some 
 > [!div class="step-by-step"]
 > [Next: Add a controller](adding-controller.md)
 
-::: moniker-end
+:::moniker-end
 
-::: moniker range="= aspnetcore-5.0"
+:::moniker range="= aspnetcore-5.0"
 
 [!INCLUDE [consider RP](~/includes/razor.md)]
 
@@ -269,7 +269,7 @@ The tutorial assumes familiarity with VS Code. For more information, see [Gettin
   * If a dialog box appears with **Required assets to build and debug are missing from 'MvcMovie'. Add them?**, select **Yes**
 
   * `dotnet new mvc -o MvcMovie`: Creates a new ASP.NET Core MVC project in the *MvcMovie* folder.
-  * `code -r MvcMovie`: Loads the *MvcMovie.csproj* project file in Visual Studio Code.
+  * `code -r MvcMovie`: Loads the `MvcMovie.csproj` project file in Visual Studio Code.
 
 # [Visual Studio for Mac](#tab/visual-studio-mac)
 
@@ -377,9 +377,9 @@ In the next part of this tutorial, you learn about MVC and start writing some co
 > [!div class="step-by-step"]
 > [Next: Add a controller](adding-controller.md)
 
-::: moniker-end
+:::moniker-end
 
-::: moniker range="< aspnetcore-5.0"
+:::moniker range="< aspnetcore-5.0"
 
 [!INCLUDE [consider RP](~/includes/razor.md)]
 
@@ -450,7 +450,7 @@ The tutorial assumes familiarity with VS Code. For more information, see [Gettin
   * A dialog box appears with **Required assets to build and debug are missing from 'MvcMovie'. Add them?**, select **Yes**.
 
   * `dotnet new mvc -o MvcMovie`: Creates a new ASP.NET Core MVC project in the *MvcMovie* folder.
-  * `code -r MvcMovie`: Loads the *MvcMovie.csproj* project file in Visual Studio Code.
+  * `code -r MvcMovie`: Loads the `MvcMovie.csproj` project file in Visual Studio Code.
 
 # [Visual Studio for Mac](#tab/visual-studio-mac)
 
@@ -554,4 +554,4 @@ In the next part of this tutorial, you learn about MVC and start writing some co
 > [!div class="step-by-step"]
 > [Next](adding-controller.md)
 
-::: moniker-end
+:::moniker-end

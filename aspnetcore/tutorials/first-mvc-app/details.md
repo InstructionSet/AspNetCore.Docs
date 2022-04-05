@@ -4,7 +4,7 @@ author: rick-anderson
 description: Part 10 of tutorial series on ASP.NET Core MVC.
 ms.author: riande
 ms.date: 09/16/2021
-no-loc: [Home, Privacy, Kestrel, appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR]
+no-loc: [".NET MAUI", "Mac Catalyst", "Blazor Hybrid", Home, Privacy, Kestrel, appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR]
 uid: tutorials/first-mvc-app/details
 ---
 
@@ -12,13 +12,13 @@ uid: tutorials/first-mvc-app/details
 
 By [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-::: moniker range=">= aspnetcore-6.0"
+:::moniker range=">= aspnetcore-6.0"
 
 Open the Movie controller and examine the `Details` method:
 
 [!code-csharp[](start-mvc/sample/MvcMovie60/Controllers/MoviesController.cs?name=Details)]
 
-The MVC scaffolding engine that created this action method adds a comment showing an HTTP request that invokes the method. In this case it's a GET request with three URL segments, the `Movies` controller, the `Details` method, and an `id` value. Recall these segments are defined in *Program.cs*.
+The MVC scaffolding engine that created this action method adds a comment showing an HTTP request that invokes the method. In this case it's a GET request with three URL segments, the `Movies` controller, the `Details` method, and an `id` value. Recall these segments are defined in `Program.cs`.
 
 [!code-csharp[](start-mvc/sample/MvcMovie60/Program.cs?highlight=3&name=MapControllerRoute)]
 
@@ -56,15 +56,15 @@ For information on deploying to Azure, see [Tutorial: Build an ASP.NET Core and 
 > [!div class="step-by-step"]
 > [Previous](validation.md)
 
-::: moniker-end
+:::moniker-end
 
-::: moniker range="< aspnetcore-6.0"
+:::moniker range="< aspnetcore-6.0"
 
 Open the Movie controller and examine the `Details` method:
 
 [!code-csharp[](start-mvc/sample/MvcMovie22/Controllers/MoviesController.cs?name=snippet_details)]
 
-The MVC scaffolding engine that created this action method adds a comment showing an HTTP request that invokes the method. In this case it's a GET request with three URL segments, the `Movies` controller, the `Details` method, and an `id` value. Recall these segments are defined in *Startup.cs*.
+The MVC scaffolding engine that created this action method adds a comment showing an HTTP request that invokes the method. In this case it's a GET request with three URL segments, the `Movies` controller, the `Details` method, and an `id` value. Recall these segments are defined in `Startup.cs`.
 
 [!code-csharp[](start-mvc/sample/MvcMovie3/Startup.cs?highlight=5&name=snippet_1)]
 
@@ -102,4 +102,4 @@ For information on deploying to Azure, see [Tutorial: Build an ASP.NET Core and 
 > [!div class="step-by-step"]
 > [Previous](validation.md)
 
-::: moniker-end
+:::moniker-end

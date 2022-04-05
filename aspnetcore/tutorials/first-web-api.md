@@ -3,9 +3,9 @@ title: "Tutorial: Create a web API with ASP.NET Core"
 author: rick-anderson
 description: Learn how to build a web API with ASP.NET Core.
 ms.author: riande
-ms.custom: mvc, devx-track-js
+ms.custom: mvc
 ms.date: 09/09/2021
-no-loc: [Home, Privacy, Kestrel, appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR, Models]
+no-loc: [".NET MAUI", "Mac Catalyst", "Blazor Hybrid", Home, Privacy, Kestrel, appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR, Models]
 uid: tutorials/first-web-api
 ---
 
@@ -15,7 +15,7 @@ By [Rick Anderson](https://twitter.com/RickAndMSFT) and [Kirk Larkin](https://tw
 
 This tutorial teaches the basics of building a web API with ASP.NET Core.
 
-::: moniker range=">= aspnetcore-6.0"
+:::moniker range=">= aspnetcore-6.0"
 
 In this tutorial, you learn how to:
 
@@ -69,7 +69,10 @@ For Visual Studio for Mac, see the .NET 5 version of this tutorial.
 * Enter *Web API* in the search box.
 * Select the **ASP.NET Core Web API** template and select **Next**.
 * In the **Configure your new project dialog**, name the project *TodoApi* and select **Next**.
-* In the **Additional information** dialog, confirm that **Framework** is **.NET 6.0 (Preview)**, and select **Create**.
+* In the **Additional information** dialog:
+  * Confirm the **Framework** is **.NET 6.0 (Long-term support)**.
+  * Confirm the checkbox for **Use controllers(uncheck to use minimal APIs)** is checked.
+  * Select **Create**.
 
 # [Visual Studio Code](#tab/visual-studio-code)
 
@@ -80,7 +83,7 @@ For Visual Studio for Mac, see the .NET 5 version of this tutorial.
    ```dotnetcli
    dotnet new webapi -o TodoApi
    cd TodoApi
-   dotnet add package Microsoft.EntityFrameworkCore.InMemory --prerelease
+   dotnet add package Microsoft.EntityFrameworkCore.InMemory
    code -r ../TodoApi
    ```
 
@@ -121,6 +124,8 @@ Open a command terminal in the project folder and run the following command:
 
 ---
 
+[!INCLUDE[](~/includes/package-reference.md)]
+
 ### Test the project
 
 The project template creates a `WeatherForecast` API with support for [Swagger](xref:tutorials/web-api-help-pages-using-swagger).
@@ -147,11 +152,11 @@ Run the app:
   * Replace  `<project-name.dll>` with `TodoApi.dll`.
 * Press Ctrl+F5.
 * In the **Could not find the task 'build'** dialog, select **Configure Task**.
-* Select **Create *tasks.json* file from template**.
+* Select **Create `tasks.json` file from template**.
 * Select the **.NET Core** task template.
 * Press Ctrl+F5.
 
-In a browser, go to following URL: [https://localhost:5001/swagger](https://localhost:5001/swagger)
+In a browser, navigate to `https://localhost:<port>/swagger`, where `<port>` is the randomly chosen port number displayed in the output.
 
 # [Visual Studio for Mac](#tab/visual-studio-mac)
 
@@ -174,7 +179,7 @@ If the Swagger page doesn't appear, see [this GitHub issue](https://github.com/d
 
 Swagger is used to generate useful documentation and help pages for web APIs. This tutorial focuses on creating a web API. For more information on Swagger, see <xref:tutorials/web-api-help-pages-using-swagger>.
 
-Copy and paste the **Request URL** in the browser:  `https://localhost:<port>/WeatherForecast`
+Copy and paste the **Request URL** in the browser:  `https://localhost:<port>/weatherforecast`
 
 JSON similar to the following example is returned:
 
@@ -239,7 +244,7 @@ A *model* is a set of classes that represent the data that the app manages. The 
 
 * Add a folder named *Models*.
 
-* Add a *TodoItem.cs* file to the *Models* folder with the following code:
+* Add a `TodoItem.cs` file to the *Models* folder with the following code:
 
 # [Visual Studio for Mac](#tab/visual-studio-mac)
 
@@ -284,7 +289,7 @@ The *database context* is the main class that coordinates Entity Framework funct
 
 # [Visual Studio Code](#tab/visual-studio-code)
 
-* Add a *TodoContext.cs* file to the *Models* folder. 
+* Add a `TodoContext.cs` file to the *Models* folder. 
 
 # [Visual Studio for Mac](#tab/visual-studio-mac)
 
@@ -306,7 +311,7 @@ For Visual Studio for Mac, see the .NET 5 version of this tutorial.
 
 In ASP.NET Core, services such as the DB context must be registered with the [dependency injection (DI)](xref:fundamentals/dependency-injection) container. The container provides the service to controllers.
 
-Update *Program.cs* with the following code:
+Update `Program.cs` with the following code:
 
 [!code-csharp[](first-web-api/samples/6.0/TodoApi/Program.cs?highlight=1-2,10-15,23-24)]
 
@@ -340,10 +345,10 @@ Make sure that all of your changes so far are saved.
 Run the following commands from the project folder, that is, the `TodoApi` folder:
 
 ```dotnetcli
-dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --prerelease
-dotnet add package Microsoft.EntityFrameworkCore.Design --prerelease
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer --prerelease
-dotnet tool install -g dotnet-aspnet-codegenerator --version 6.0.0-preview.7.21413.1
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet tool install -g dotnet-aspnet-codegenerator
 dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m TodoItem -dc TodoContext -outDir Controllers
 ```
 
@@ -397,7 +402,7 @@ This tutorial uses [http-repl](../web-api/http-repl/index.md) to test the web AP
   dotnet tool install -g Microsoft.dotnet-httprepl
   ```
 
-* If you don't have the .NET 5.0 SDK or runtime installed, install the [.NET 5.0 runtime](https://dotnet.microsoft.com/download/dotnet/5.0/runtime).
+* If you don't have the .NET 6.0 SDK or runtime installed, install the [.NET 6.0 runtime](https://dotnet.microsoft.com/download/dotnet/6.0/runtime).
   
 <a name="post"></a>
 
@@ -568,6 +573,7 @@ Date: Tue, 07 Sep 2021 21:43:00 GMT
 Server: Kestrel
 ```
 
+<a name="over-post"></a>
 ## Prevent over-posting
 
 Currently the sample app exposes the entire `TodoItem` object. Production apps typically limit the data that's input and returned using a subset of the model. There are multiple reasons behind this, and security is a major one. The subset of a model is usually referred to as a Data Transfer Object (DTO), input model, or view model. **DTO** is used in this tutorial.
@@ -601,9 +607,9 @@ Verify you can't post or get the secret field.
 
 See [Tutorial: Call an ASP.NET Core web API with JavaScript](xref:tutorials/web-api-javascript).
 
-::: moniker-end
+:::moniker-end
 
-::: moniker range="= aspnetcore-5.0"
+:::moniker range="= aspnetcore-5.0"
 
 In this tutorial, you learn how to:
 
@@ -705,6 +711,8 @@ Open a command terminal in the project folder and run the following command:
 
 ---
 
+[!INCLUDE[](~/includes/package-reference.md)]
+
 ### Test the project
 
 The project template creates a `WeatherForecast` API with support for [Swagger](xref:tutorials/web-api-help-pages-using-swagger).
@@ -745,7 +753,7 @@ If the Swagger page doesn't appear, see [this GitHub issue](https://github.com/d
 -->
 Swagger is used to generate useful documentation and help pages for web APIs. This tutorial focuses on creating a web API. For more information on Swagger, see <xref:tutorials/web-api-help-pages-using-swagger>.
 
-Copy and paste the **Request URL** in the browser:  `https://localhost:<port>/WeatherForecast`
+Copy and paste the **Request URL** in the browser:  `https://localhost:<port>/weatherforecast`
 
 JSON similar to the following is returned:
 
@@ -865,7 +873,7 @@ The *database context* is the main class that coordinates Entity Framework funct
 
 In ASP.NET Core, services such as the DB context must be registered with the [dependency injection (DI)](xref:fundamentals/dependency-injection) container. The container provides the service to controllers.
 
-Update *Startup.cs* with the following code:
+Update `Startup.cs` with the following code:
 
 [!code-csharp[](first-web-api/samples/5.x/TodoApi/Startup.cs?highlight=7-8,25-30,38-39&name=snippet_all)]
 
@@ -931,7 +939,7 @@ The preceding code is an HTTP POST method, as indicated by the [`[HttpPost]`](xr
 
 For more information, see [Attribute routing with Http[Verb] attributes](xref:mvc/controllers/routing#verb).
 
-The <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*> method:
+The <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction%2A> method:
 
 * Returns an [HTTP 201 status code](https://developer.mozilla.org/docs/Web/HTTP/Status/201) if successful. HTTP 201 is the standard response for an HTTP POST method that creates a new resource on the server.
 * Adds a [Location](https://developer.mozilla.org/docs/Web/HTTP/Headers/Location) header to the response. The `Location` header specifies the [URI](https://developer.mozilla.org/docs/Glossary/URI) of the newly created to-do item. For more information, see [10.2.2 201 Created](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
@@ -1122,9 +1130,9 @@ Verify you can't post or get the secret field.
 
 See [Tutorial: Call an ASP.NET Core web API with JavaScript](xref:tutorials/web-api-javascript).
 
-::: moniker-end
+:::moniker-end
 
-::: moniker range="< aspnetcore-5.0"
+:::moniker range="< aspnetcore-5.0"
 
 In this tutorial, you learn how to:
 
@@ -1226,23 +1234,25 @@ Open a command terminal in the project folder and run the following command:
 
 ---
 
+[!INCLUDE[](~/includes/package-reference.md)]
+
 ### Test the API
 
 The project template creates a `WeatherForecast` API. Call the `Get` method from a browser to test the app.
 
 # [Visual Studio](#tab/visual-studio)
 
-Press Ctrl+F5 to run the app. Visual Studio launches a browser and navigates to `https://localhost:<port>/WeatherForecast`, where `<port>` is a randomly chosen port number.
+Press Ctrl+F5 to run the app. Visual Studio launches a browser and navigates to `https://localhost:<port>/weatherforecast`, where `<port>` is a randomly chosen port number.
 
 If you get a dialog box that asks if you should trust the IIS Express certificate, select **Yes**. In the **Security Warning** dialog that appears next, select **Yes**.
 
 # [Visual Studio Code](#tab/visual-studio-code)
 
-Press Ctrl+F5 to run the app. In a browser, go to following URL: `https://localhost:5001/WeatherForecast`.
+Press Ctrl+F5 to run the app. In a browser, go to following URL: `https://localhost:5001/weatherforecast`.
 
 # [Visual Studio for Mac](#tab/visual-studio-mac)
 
-Select **Run** > **Start Debugging** to launch the app. Visual Studio for Mac launches a browser and navigates to `https://localhost:<port>`, where `<port>` is a randomly chosen port number. An HTTP 404 (Not Found) error is returned. Append `/WeatherForecast` to the URL (change the URL to `https://localhost:<port>/WeatherForecast`).
+Select **Run** > **Start Debugging** to launch the app. Visual Studio for Mac launches a browser and navigates to `https://localhost:<port>`, where `<port>` is a randomly chosen port number. An HTTP 404 (Not Found) error is returned. Append `/weatherforecast` to the URL (change the URL to `https://localhost:<port>/weatherforecast`).
 
 ---
 
@@ -1354,7 +1364,7 @@ The *database context* is the main class that coordinates Entity Framework funct
 
 In ASP.NET Core, services such as the DB context must be registered with the [dependency injection (DI)](xref:fundamentals/dependency-injection) container. The container provides the service to controllers.
 
-Update *Startup.cs* with the following highlighted code:
+Update `Startup.cs` with the following highlighted code:
 
 [!code-csharp[](first-web-api/samples/3.0/TodoApi/Startup.cs?highlight=7-8,23-24&name=snippet_all)]
 
@@ -1419,7 +1429,7 @@ The preceding code is an HTTP POST method, as indicated by the [`[HttpPost]`](xr
 
 For more information, see [Attribute routing with Http[Verb] attributes](xref:mvc/controllers/routing#attribute-routing-with-httpverb-attributes).
 
-The <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*> method:
+The <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction%2A> method:
 
 * Returns an HTTP 201 status code if successful. HTTP 201 is the standard response for an HTTP POST method that creates a new resource on the server.
 * Adds a [Location](https://developer.mozilla.org/docs/Web/HTTP/Headers/Location) header to the response. The `Location` header specifies the [URI](https://developer.mozilla.org/docs/Glossary/URI) of the newly created to-do item. For more information, see [10.2.2 201 Created](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
@@ -1607,13 +1617,13 @@ Verify you can't post or get the secret field.
 
 See [Tutorial: Call an ASP.NET Core web API with JavaScript](xref:tutorials/web-api-javascript).
 
-::: moniker-end
+:::moniker-end
 
 <a name="auth"></a>
 
 ## Add authentication support to a web API
 
-[!INCLUDE[](~/includes/IdentityServer4.md)]
+[!INCLUDE[](~/includes/DuendeIdentityServer.md)]
 
 ## Additional resources
 

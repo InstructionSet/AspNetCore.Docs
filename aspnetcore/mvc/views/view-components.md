@@ -5,7 +5,7 @@ description: Learn how view components are used in ASP.NET Core and how to add t
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2019
-no-loc: [Home, Privacy, Kestrel, appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR]
+no-loc: [".NET MAUI", "Mac Catalyst", "Blazor Hybrid", Home, Privacy, Kestrel, appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR]
 uid: mvc/views/view-components
 ---
 # View components in ASP.NET Core
@@ -35,7 +35,7 @@ View components are intended anywhere you have reusable rendering logic that's t
 * Sidebar content on a typical blog
 * A login panel that would be rendered on every page and show either the links to log out or log in, depending on the log in state of the user
 
-A view component consists of two parts: the class (typically derived from [ViewComponent](/dotnet/api/microsoft.aspnetcore.mvc.viewcomponent)) and the result it returns (typically a view). Like controllers, a view component can be a POCO, but most developers will want to take advantage of the methods and properties available by deriving from `ViewComponent`.
+A view component consists of two parts: the class (typically derived from <xref:Microsoft.AspNetCore.Mvc.ViewComponent>) and the result it returns (typically a view). Like controllers, a view component can be a POCO, but most developers will want to take advantage of the methods and properties available by deriving from `ViewComponent`.
 
 When considering if view components meet an app's specifications, consider using Razor components instead. Razor components also combine markup with C# code to produce reusable UI units. Razor components are designed for developer productivity when providing client-side UI logic and composition. For more information, see <xref:blazor/components/index>. For information on how to incorporate Razor components into an MVC or Razor Pages app, see <xref:blazor/components/prerendering-and-integration?pivots=server>.
 
@@ -56,8 +56,16 @@ Like controllers, view components must be public, non-nested, and non-abstract c
 A view component class:
 
 * Fully supports constructor [dependency injection](../../fundamentals/dependency-injection.md)
-
 * Doesn't take part in the controller lifecycle, which means you can't use [filters](../controllers/filters.md) in a view component
+
+To stop a class that has a case-insensitive *ViewComponent* suffix from being treated as a view component, decorate the class with the [[NonViewComponent]](xref:Microsoft.AspNetCore.Mvc.NonViewComponentAttribute) attribute:
+ 
+```csharp
+[NonViewComponent]
+public class ReviewComponent
+{
+    // ...
+```
 
 ### View component methods
 
@@ -79,9 +87,9 @@ The runtime searches for the view in the following paths:
 
 The search path applies to projects using controllers + views and Razor Pages.
 
-The default view name for a view component is *Default*, which means your view file will typically be named *Default.cshtml*. You can specify a different view name when creating the view component result or when calling the `View` method.
+The default view name for a view component is *Default*, which means your view file will typically be named `Default.cshtml`. You can specify a different view name when creating the view component result or when calling the `View` method.
 
-We recommend you name the view file *Default.cshtml* and use the *Views/Shared/Components/{View Component Name}/{View Name}* path. The `PriorityList` view component used in this sample uses *Views/Shared/Components/PriorityList/Default.cshtml* for the view component view.
+We recommend you name the view file `Default.cshtml` and use the *Views/Shared/Components/{View Component Name}/{View Name}* path. The `PriorityList` view component used in this sample uses `Views/Shared/Components/PriorityList/Default.cshtml` for the view component view.
 
 ### Customize the view search path
 
@@ -99,11 +107,11 @@ To use the view component, call the following inside a view:
 @await Component.InvokeAsync("Name of view component", {Anonymous Type Containing Parameters})
 ```
 
-The parameters will be passed to the `InvokeAsync` method. The `PriorityList` view component developed in the article is invoked from the *Views/ToDo/Index.cshtml* view file. In the following, the `InvokeAsync` method is called with two parameters:
+The parameters will be passed to the `InvokeAsync` method. The `PriorityList` view component developed in the article is invoked from the `Views/ToDo/Index.cshtml` view file. In the following, the `InvokeAsync` method is called with two parameters:
 
 [!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexFinal.cshtml?range=35)]
 
-::: moniker range=">= aspnetcore-1.1"
+:::moniker range=">= aspnetcore-1.1"
 
 ## Invoking a view component as a Tag Helper
 
@@ -120,7 +128,7 @@ Pascal-cased class and method parameters for Tag Helpers are translated into the
 </vc:[view-component-name]>
 ```
 
-To use a view component as a Tag Helper, register the assembly containing the view component using the `@addTagHelper` directive. If your view component is in an assembly called `MyWebApp`, add the following directive to the *_ViewImports.cshtml* file:
+To use a view component as a Tag Helper, register the assembly containing the view component using the `@addTagHelper` directive. If your view component is in an assembly called `MyWebApp`, add the following directive to the `_ViewImports.cshtml` file:
 
 ```cshtml
 @addTagHelper *, MyWebApp
@@ -138,7 +146,7 @@ In Tag Helper markup:
 
 In the sample above, the `PriorityList` view component becomes `priority-list`. The parameters to the view component are passed as attributes in kebab case.
 
-::: moniker-end
+:::moniker-end
 
 ### Invoking a view component directly from a controller
 
@@ -182,16 +190,16 @@ Notes on the code:
 
 * Create the *Views/Shared/Components/PriorityList* folder. This folder name must match the name of the view component class, or the name of the class minus the suffix (if we followed convention and used the *ViewComponent* suffix in the class name). If you used the `ViewComponent` attribute, the class name would need to match the attribute designation.
 
-* Create a *Views/Shared/Components/PriorityList/Default.cshtml* Razor view:
+* Create a `Views/Shared/Components/PriorityList/Default.cshtml` Razor view:
 
 
   [!code-cshtml[](view-components/sample/ViewCompFinal/Views/Shared/Components/PriorityList/Default1.cshtml)]
 
    The Razor view takes a list of `TodoItem` and displays them. If the view component `InvokeAsync` method doesn't pass the name of the view (as in our sample), *Default* is used for the view name by convention. Later in the tutorial, I'll show you how to pass the name of the view. To override the default styling for a specific controller, add a view to the controller-specific view folder (for example *Views/ToDo/Components/PriorityList/Default.cshtml)*.
 
-    If the view component is controller-specific, you can add it to the controller-specific folder (*Views/ToDo/Components/PriorityList/Default.cshtml*).
+    If the view component is controller-specific, you can add it to the controller-specific folder (`Views/ToDo/Components/PriorityList/Default.cshtml`).
 
-* Add a `div` containing a call to the priority list component to the bottom of the *Views/ToDo/index.cshtml* file:
+* Add a `div` containing a call to the priority list component to the bottom of the `Views/ToDo/index.cshtml` file:
 
     [!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexFirst.cshtml?range=34-38)]
 
@@ -213,11 +221,11 @@ A complex view component might need to specify a non-default view under some con
 
 [!code-csharp[](../../mvc/views/view-components/sample/ViewCompFinal/ViewComponents/PriorityListViewComponentFinal.cs?highlight=4,5,6,7,8,9&range=28-39)]
 
-Copy the *Views/Shared/Components/PriorityList/Default.cshtml* file to a view named *Views/Shared/Components/PriorityList/PVC.cshtml*. Add a heading to indicate the PVC view is being used.
+Copy the `Views/Shared/Components/PriorityList/Default.cshtml` file to a view named `Views/Shared/Components/PriorityList/PVC.cshtml`. Add a heading to indicate the PVC view is being used.
 
 [!code-cshtml[](../../mvc/views/view-components/sample/ViewCompFinal/Views/Shared/Components/PriorityList/PVC.cshtml?highlight=3)]
 
-Update *Views/ToDo/Index.cshtml*:
+Update `Views/ToDo/Index.cshtml`:
 
 <!-- Views/ToDo/Index.cshtml is never imported, so change to test tutorial -->
 
@@ -232,7 +240,7 @@ If the PVC view isn't rendered, verify you are calling the view component with a
 ### Examine the view path
 
 * Change the priority parameter to three or less so the priority view isn't returned.
-* Temporarily rename the *Views/ToDo/Components/PriorityList/Default.cshtml* to *1Default.cshtml*.
+* Temporarily rename the `Views/ToDo/Components/PriorityList/Default.cshtml` to `1Default.cshtml`.
 * Test the app, you'll get the following error:
 
    ```
@@ -243,7 +251,7 @@ If the PVC view isn't rendered, verify you are calling the view component with a
    EnsureSuccessful
    ```
 
-* Copy *Views/ToDo/Components/PriorityList/1Default.cshtml* to *Views/Shared/Components/PriorityList/Default.cshtml*.
+* Copy `Views/ToDo/Components/PriorityList/1Default.cshtml` to `Views/Shared/Components/PriorityList/Default.cshtml`.
 * Add some markup to the *Shared* ToDo view component view to indicate the view is from the *Shared* folder.
 * Test the **Shared** component view.
 
@@ -278,7 +286,7 @@ public class PriorityList : ViewComponent
 }
 ```
 
-The view component's Razor file lists the strings passed to the `Invoke` method (*Views/Home/Components/PriorityList/Default.cshtml*):
+The view component's Razor file lists the strings passed to the `Invoke` method (`Views/Home/Components/PriorityList/Default.cshtml`):
 
 ```cshtml
 @model List<string>
@@ -292,30 +300,30 @@ The view component's Razor file lists the strings passed to the `Invoke` method 
 </ul>
 ```
 
-::: moniker range=">= aspnetcore-1.1"
+:::moniker range=">= aspnetcore-1.1"
 
-The view component is invoked in a Razor file (for example, *Views/Home/Index.cshtml*) using one of the following approaches:
+The view component is invoked in a Razor file (for example, `Views/Home/Index.cshtml`) using one of the following approaches:
 
 * <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper>
 * [Tag Helper](xref:mvc/views/tag-helpers/intro)
 
 To use the <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper> approach, call `Component.InvokeAsync`:
 
-::: moniker-end
+:::moniker-end
 
-::: moniker range="< aspnetcore-1.1"
+:::moniker range="< aspnetcore-1.1"
 
-The view component is invoked in a Razor file (for example, *Views/Home/Index.cshtml*) with <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper>.
+The view component is invoked in a Razor file (for example, `Views/Home/Index.cshtml`) with <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper>.
 
 Call `Component.InvokeAsync`:
 
-::: moniker-end
+:::moniker-end
 
 ```cshtml
 @await Component.InvokeAsync(nameof(PriorityList), new { maxPriority = 4, isDone = true })
 ```
 
-::: moniker range=">= aspnetcore-1.1"
+:::moniker range=">= aspnetcore-1.1"
 
 To use the Tag Helper, register the assembly containing the View Component using the `@addTagHelper` directive (the view component is in an assembly called `MyWebApp`):
 
@@ -330,7 +338,7 @@ Use the view component Tag Helper in the Razor markup file:
 </vc:priority-list>
 ```
 
-::: moniker-end
+:::moniker-end
 
 The method signature of `PriorityList.Invoke` is synchronous, but Razor finds and calls the method with `Component.InvokeAsync` in the markup file.
 

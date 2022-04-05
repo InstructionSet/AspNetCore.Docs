@@ -4,18 +4,18 @@ author: rick-anderson
 description: Learn how ASP.NET Core MVC uses Routing Middleware to match URLs of incoming requests and map them to actions.
 ms.author: riande
 ms.date: 9/15/2021
-no-loc: [Home, Privacy, Kestrel, appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR]
+no-loc: [".NET MAUI", "Mac Catalyst", "Blazor Hybrid", Home, Privacy, Kestrel, appsettings.json, "ASP.NET Core Identity", cookie, Cookie, Blazor, "Blazor Server", "Blazor WebAssembly", "Identity", "Let's Encrypt", Razor, SignalR]
 uid: mvc/controllers/routing
 ---
 # Routing to controller actions in ASP.NET Core
 
 By [Ryan Nowak](https://github.com/rynowak), [Kirk Larkin](https://twitter.com/serpent5), and [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-::: moniker range=">= aspnetcore-6.0"
+:::moniker range=">= aspnetcore-6.0"
 
 ASP.NET Core controllers use the Routing [middleware](xref:fundamentals/middleware/index) to match the URLs of incoming requests and map them to [actions](#action).  Route templates:
 
-* Are defined at startup in *Program.cs* or in attributes.
+* Are defined at startup in `Program.cs` or in attributes.
 * Describe how URL paths are matched to [actions](#action).
 * Are used to generate URLs for links. The generated links are typically returned in responses.
 
@@ -381,7 +381,7 @@ The `Products2ApiController.GetProduct(int)` action:
 * Is run with URL path like `/products2/3`
 * Isn't run with the URL path `/products2`.
 
-The [[Consumes]](<xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute>) attribute allows an action to limit the supported request content types. For more information, see [Define supported request content types with the Consumes attribute](xref:web-api/index#consumes).
+The [[Consumes]](xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute) attribute allows an action to limit the supported request content types. For more information, see [Define supported request content types with the Consumes attribute](xref:web-api/index#consumes).
 
  See [Routing](xref:fundamentals/routing) for a full description of route templates and related options.
 
@@ -584,7 +584,7 @@ The preceding `Get` method returns `Order = 2, Template = api/MyTestApi`.
 
 The application model:
 
-* Is an object model created at startup in *Program.cs*.
+* Is an object model created at startup in `Program.cs`.
 * Contains all of the metadata used by ASP.NET Core to route and execute the actions in an app.
 
 The application model includes all of the data gathered from route attributes. The data from route attributes is provided by the `IRouteTemplateProvider` implementation. Conventions:
@@ -609,7 +609,7 @@ The `NamespaceRoutingConvention.Apply` method:
 * Does nothing if the controller is attribute routed.
 * Sets the controllers template based on the `namespace`, with the base `namespace` removed.
 
-The `NamespaceRoutingConvention` can be applied in *Program.cs*:
+The `NamespaceRoutingConvention` can be applied in `Program.cs`:
 
 [!code-csharp[](routing/samples/6.x/nsrc/Program.cs?name=snippet_nrc)]
 
@@ -846,9 +846,9 @@ Public methods on a controller, except those with the [NonAction](xref:Microsoft
 
 [!INCLUDE[](~/includes/dbg-route.md)]
 
-::: moniker-end
+:::moniker-end
 
-::: moniker range="< aspnetcore-6.0"
+:::moniker range="< aspnetcore-6.0"
 
 ASP.NET Core controllers use the Routing [middleware](xref:fundamentals/middleware/index) to match the URLs of incoming requests and map them to [actions](#action).  Route templates:
 
@@ -1220,7 +1220,7 @@ The `Products2ApiController.GetProduct(int)` action:
 * Is run with URL path like `/products2/3`
 * Isn't run with the URL path `/products2`.
 
-The [[Consumes]](<xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute>) attribute allows an action to limit the supported request content types. For more information, see [Define supported request content types with the Consumes attribute](xref:web-api/index#consumes).
+The [[Consumes]](xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute) attribute allows an action to limit the supported request content types. For more information, see [Define supported request content types with the Consumes attribute](xref:web-api/index#consumes).
 
  See [Routing](xref:fundamentals/routing) for a full description of route templates and related options.
 
@@ -1685,4 +1685,4 @@ Public methods on a controller, except those with the [NonAction](xref:Microsoft
 
 [!INCLUDE[](~/includes/dbg-route.md)]
 
-::: moniker-end
+:::moniker-end
